@@ -7,7 +7,7 @@ public class Grafo {
 	private final int NUMERO_MAXIMO_VERTICES;
 	private int matriz_adjacencia[][];
 	private int pos[];
-
+	/**/
 	Vertice A = new Vertice("B", "A", 1000, null);
 	Vertice B = new Vertice("B", "B", 1000, null);
 	Vertice C = new Vertice("B", "C", 1000, null);
