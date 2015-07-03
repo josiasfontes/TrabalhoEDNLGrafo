@@ -6,8 +6,9 @@ import java.util.Scanner;
 public class GrafoMain{
 	
 	public static void main(String... arg){
-		//Grafo grafo = new Grafo();
+		
 		BFS bfs = new BFS();
+		DFS dfs = new DFS();
 		int teste[][] = null;
 		
 		System.out.println("GRAFO ORIENTADO!");
@@ -17,19 +18,21 @@ public class GrafoMain{
 		Scanner scan = new Scanner(System.in);
 		Scanner scan2 = new Scanner(System.in);
 		ReferenciaVertice verticeReferencia = new ReferenciaVertice();
-		Grafo adjacencyMatrix;
+		Grafo adjacencyMatrix = null;
 
 		try{
-			System.out.print("Digite o numero de Vertices: ");
-			numero_vertices = scan.nextInt();
+			//System.out.print("Digite o numero de Vertices: ");
+			//numero_vertices = scan.nextInt();
+			numero_vertices = 4;
 			adjacencyMatrix = new Grafo(numero_vertices);
 			
-			System.out.print("Digite o numero de Aresta: ");
-			int numero_arestas = scan.nextInt();
-			System.out.println("Digite as arestas do Grafo :<ORIGEM><DESTINO><PESO> ");
+			//System.out.print("Digite o numero de Aresta: ");
+			//int numero_arestas = scan.nextInt();
+			int numero_arestas = 3;
+			//System.out.println("Digite as arestas do Grafo :<ORIGEM><DESTINO><PESO> ");
 			
 			
-			while (count <= numero_arestas){
+			/*while (count <= numero_arestas){
 				entrada = scan2.nextLine();
 				origem = String.valueOf(entrada.charAt(0));
 				destino = String.valueOf(entrada.charAt(1));
@@ -40,7 +43,11 @@ public class GrafoMain{
 				adjacencyMatrix.setAresta(vorigem, vdestino, peso);
 				
 				count++;
-			}
+			}*/
+			
+			adjacencyMatrix.setAresta(0, 1, 1);
+			adjacencyMatrix.setAresta(1, 2, 1);
+			adjacencyMatrix.setAresta(0, 3, 1);
 			teste = adjacencyMatrix.getMatriz_adjacencia();
 			adjacencyMatrix.printMatriz(numero_vertices);
 		} catch (InputMismatchException inputMisMatch){
@@ -48,16 +55,12 @@ public class GrafoMain{
 			System.out
 					.println("Error in Input Format.<source index> <destination index>");
 		}
-		
+		System.out.println("Digite o vertice a ser buscado: ");
 		String busca;
-		busca = scan2.nextLine();
-		/*int teste2[]= bfs.bfs(teste, busca);
-        System.out.println("Vertices Visitados: ");
-        for (int i = 0; i < teste.length; i++) {
-        	System.out.println("Vertice: "+teste2[i]);
-		}*/
-		bfs.bfs(teste, busca);
-        
+//		busca = scan2.nextLine();
+		busca = "D";	
+		//System.out.print("\nResultado da busca: "+bfs.bfs(teste,adjacencyMatrix.getVerticesGrafo(), busca.toUpperCase()));
+		System.out.print("\nResultado da busca: "+dfs.dfs(teste,adjacencyMatrix.getVerticesGrafo(), busca.toUpperCase()));
 		
 		scan.close();
 		scan2.close();

@@ -89,4 +89,92 @@ public class ReferenciaVertice {
 		return vertice;
 	}
 
+	public String converterString(int referenciaVertice) {
+		String vertice = "*";
+
+		switch (referenciaVertice) {
+		case 0:
+			vertice = "A";
+			break;
+		case 1:
+			vertice = "B";
+			break;
+		case 2:
+			vertice = "C";
+			break;
+		case 3:
+			vertice = "D";
+			break;
+		case 4:
+			vertice = "E";
+			break;
+		case 5:
+			vertice = "F";
+			break;
+		case 6:
+			vertice = "G";
+			break;
+		case 7:
+			vertice = "H";
+			break;
+		case 8:
+			vertice = "I";
+			break;
+		case 9:
+			vertice = "J";
+			break;
+		case 10:
+			vertice = "K";
+			break;
+		case 11:
+			vertice = "L";
+			break;
+		case 12:
+			vertice = "M";
+			break;
+		case 13:
+			vertice = "N";
+			break;
+		case 14:
+			vertice = "O";
+			break;
+		case 15:
+			vertice = "P";
+			break;
+		case 16:
+			vertice = "Q";
+			break;
+		case 17:
+			vertice = "R";
+			break;
+		case 18:
+			vertice = "S";
+			break;
+		case 19:
+			vertice = "T";
+			break;
+		case 20:
+			vertice = "U";
+			break;
+		case 21:
+			vertice = "V";
+			break;
+		case 22:
+			vertice = "W";
+			break;
+		case 23:
+			vertice = "X";
+			break;
+		case 24:
+			vertice = "Y";
+			break;
+		case 25:
+			vertice = "Z";
+			break;
+		default:
+			break;
+		}
+		return vertice;
+	}
+
 }

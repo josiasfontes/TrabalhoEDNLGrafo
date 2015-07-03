@@ -1,58 +1,72 @@
 package grafo;
 
 import java.util.InputMismatchException;
-
 import java.util.LinkedList;
-
 import java.util.Queue;
+import java.util.Stack;
 
 public class BFS {
+	Stack<Vertice> pilhaexecucao = new Stack<Vertice>();
+	Queue<Vertice> verticesVisitadas = new LinkedList<Vertice>();
+	ReferenciaVertice stringInt = new ReferenciaVertice();
+	ReferenciaVertice intString = new ReferenciaVertice();
+	int tempo = 0;
 
-	private Queue<Integer> queue;
-	
+	public String bfs(int adjacency_matrix[][], Vertice[] verticesGrafo,
+			String source) {
+		String verticeBuscado = "Vertice não encontrado";
+		Queue<Vertice> verticesVisitadas = new LinkedList<Vertice>();
+		Queue<Vertice> fila = new LinkedList<Vertice>();
+		Vertice cabecaFila;
 
-	public BFS() {
+		verticesGrafo[0].cor = "C";
+		verticesGrafo[0].predecessor = null;
+		verticesGrafo[0].distancia = 0;
+		fila.add(verticesGrafo[0]);
+		verticesVisitadas.add(verticesGrafo[0]);
 
-		queue = new LinkedList<Integer>();
-	}
-
-	public void/*int[] */bfs(int adjacency_matrix[][], String source) {
-		ReferenciaVertice verticeBusca = new ReferenciaVertice();
-		int elementoBusca = verticeBusca.converter(source);
-		System.out.println("Indice matriz elementoBusca: "+elementoBusca);
-		
-		for (int i = 0; i < adjacency_matrix.length; i++) {
-			for (int j = 0; j < adjacency_matrix.length; j++) {
-				if (adjacency_matrix[i][j] > 0) {
-					
+		while (!fila.isEmpty()) {
+			cabecaFila = fila.peek();
+			if (cabecaFila.simbolo.equals(source)) {
+				verticeBuscado = source;
+			} else {
+				ReferenciaVertice stringInt = new ReferenciaVertice();
+				ReferenciaVertice intString = new ReferenciaVertice();
+				int indiceCabecaFila = stringInt.converter(cabecaFila.getSimbolo());
+				for (int i = 0; i < adjacency_matrix.length; i++) {
+					if (adjacency_matrix[indiceCabecaFila][i] != 1000 && adjacency_matrix[indiceCabecaFila][i] != 0) {
+						String simbolo = intString.converterString(i);
+						if (simbolo.equals(source)) {
+							verticeBuscado = simbolo;
+						} else {
+							for (int j = 0; j < verticesGrafo.length; j++) {
+								if (verticesGrafo[j].getSimbolo().equals(simbolo)) {
+									verticesVisitadas.add(verticesGrafo[j]);
+									if (verticesGrafo[j].getCor().equals("B")) {
+										verticesGrafo[j].cor = "C";
+										verticesGrafo[j].predecessor = cabecaFila;
+										verticesGrafo[j].distancia = cabecaFila.getDistancia() + 1;
+										fila.add(verticesGrafo[j]);
+									}
+								}
+							}
+						}
+					}
 				}
 			}
+			fila.remove();
+			cabecaFila.setCor("P");
 		}
-		
-		
-		
-/*		int number_of_nodes = adjacency_matrix[source].length - 1;
-		System.out.println("Numero de nos: "+ number_of_nodes);
-
-		int[] visited = new int[number_of_nodes + 1];
-		int i, element;
-		visited[source] = 1;
-
-		queue.add(source);
-		while (!queue.isEmpty()) {
-			element = queue.remove();
-			System.out.println("Element: "+element);
-			i = element;
-			System.out.println("i: "+i + "\t");
-			while (i <= number_of_nodes) {
-				if (adjacency_matrix[element][i] == 1 && visited[i] == 0) {
-					queue.add(i);
-					visited[i] = 1;
-				}
-				i++;
+		if (!verticeBuscado.equals("Vertice não encontrado")) {
+			System.out.print("Vertices percorridos:");
+			for (Vertice v: verticesVisitadas) {
+				System.out.print("\n[VERTICE: "+v.simbolo+",");
+				System.out.print(" COR: "+v.cor+",");
+				System.out.print(" DISTANCIA: "+v.distancia+"]");
 			}
 		}
-		return visited;*/
+		return verticeBuscado;
 	}
+
 	
 }
