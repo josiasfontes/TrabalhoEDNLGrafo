@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BFS {
-	Stack<Vertice> pilhaexecucao = new Stack<Vertice>();
+	Queue<Vertice> fila = new LinkedList<Vertice>();
 	Queue<Vertice> verticesVisitadas = new LinkedList<Vertice>();
 	ReferenciaVertice stringInt = new ReferenciaVertice();
 	ReferenciaVertice intString = new ReferenciaVertice();
@@ -15,8 +15,7 @@ public class BFS {
 	public String bfs(int adjacency_matrix[][], Vertice[] verticesGrafo,
 			String source) {
 		String verticeBuscado = "Vertice não encontrado";
-		Queue<Vertice> verticesVisitadas = new LinkedList<Vertice>();
-		Queue<Vertice> fila = new LinkedList<Vertice>();
+
 		Vertice cabecaFila;
 
 		verticesGrafo[0].cor = "C";
@@ -29,44 +28,50 @@ public class BFS {
 			cabecaFila = fila.peek();
 			if (cabecaFila.simbolo.equals(source)) {
 				verticeBuscado = source;
+				for (Vertice v : verticesVisitadas) {
+					v.cor = "P";
+				}
+				printVerticesVisitados();
+				return verticeBuscado;
 			} else {
-				ReferenciaVertice stringInt = new ReferenciaVertice();
-				ReferenciaVertice intString = new ReferenciaVertice();
-				int indiceCabecaFila = stringInt.converter(cabecaFila.getSimbolo());
+				int indiceCabecaFila = stringInt.converter(cabecaFila
+						.getSimbolo());
 				for (int i = 0; i < adjacency_matrix.length; i++) {
-					if (adjacency_matrix[indiceCabecaFila][i] != 1000 && adjacency_matrix[indiceCabecaFila][i] != 0) {
+					System.out.println("[" + indiceCabecaFila + "][" + i+ "] = " + adjacency_matrix[indiceCabecaFila][i]);
+					if (adjacency_matrix[indiceCabecaFila][i] != 1000
+							&& adjacency_matrix[indiceCabecaFila][i] != 0) {
 						String simbolo = intString.converterString(i);
 						if (simbolo.equals(source)) {
 							verticeBuscado = simbolo;
+							printVerticesVisitados();
+							return verticeBuscado;
 						} else {
-							for (int j = 0; j < verticesGrafo.length; j++) {
-								if (verticesGrafo[j].getSimbolo().equals(simbolo)) {
-									verticesVisitadas.add(verticesGrafo[j]);
-									if (verticesGrafo[j].getCor().equals("B")) {
-										verticesGrafo[j].cor = "C";
-										verticesGrafo[j].predecessor = cabecaFila;
-										verticesGrafo[j].distancia = cabecaFila.getDistancia() + 1;
-										fila.add(verticesGrafo[j]);
-									}
-								}
+							verticesVisitadas.add(verticesGrafo[i]);
+							if (verticesGrafo[i].getCor().equals("B")) {
+								verticesGrafo[i].cor = "C";
+								verticesGrafo[i].predecessor = cabecaFila;
+								verticesGrafo[i].distancia = cabecaFila
+										.getDistancia() + 1;
+								fila.add(verticesGrafo[i]);
 							}
 						}
 					}
 				}
+				fila.remove();
+				cabecaFila.setCor("P");
 			}
-			fila.remove();
-			cabecaFila.setCor("P");
-		}
-		if (!verticeBuscado.equals("Vertice não encontrado")) {
-			System.out.print("Vertices percorridos:");
-			for (Vertice v: verticesVisitadas) {
-				System.out.print("\n[VERTICE: "+v.simbolo+",");
-				System.out.print(" COR: "+v.cor+",");
-				System.out.print(" DISTANCIA: "+v.distancia+"]");
-			}
+
 		}
 		return verticeBuscado;
 	}
 
-	
+	public void printVerticesVisitados() {
+		System.out.print("Vertices percorridos:");
+		for (Vertice v : verticesVisitadas) {
+			System.out.print("\n[VERTICE: " + v.simbolo + ",");
+			System.out.print(" COR: " + v.cor + ",");
+			System.out.print(" DISTANCIA: " + v.distancia + "]");
+		}
+	}
+
 }

@@ -58,7 +58,7 @@ public class GrafoMain{
 		System.out.println("Digite o vertice a ser buscado: ");
 		String busca;
 //		busca = scan2.nextLine();
-		busca = "D";	
+		busca = "B";	
 		//System.out.print("\nResultado da busca: "+bfs.bfs(teste,adjacencyMatrix.getVerticesGrafo(), busca.toUpperCase()));
 		System.out.print("\nResultado da busca: "+dfs.dfs(teste,adjacencyMatrix.getVerticesGrafo(), busca.toUpperCase()));
 		
